@@ -1,29 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
+
+import ResolutionsForm from './ResolutionsForm.jsx'
+import ResolutionSingle from './ResolutionSingle.jsx'
 
 Resolutions = new Mongo.Collection("resolutions");
 
+export default class App extends TrackerReact(React.Component) {
 
-export default class App extends React.Component {
-addResolution(event){
-  event.preventDefault();
-  var text = this.refs.resolution.value.trim();
+  resolutions() {
+    return Resolutions.find({}).fetch();
 
-  Resolutions.insert({
-    text: text,
-    complete: false,
-    createdAt: new Date()
-  });
-   this.refs.resolution.value = "";
-}
+  }
 
   render() {
+    let res = this.resolutions();
+    if(res[0] === undefined){
+      return (
+        <div>Loading Fool</div>
+      )
+    }
     return (
       <div>
         <h1>My Resolutions</h1>
-        <form class="new-resolution" onSubmit={this.addResolution.bind(this)}>
-          <input type="text" ref="resolution" placeholder="Finish" />
-        </form>
+        <ResolutionsForm />
+        <ul>
+          <ResolutionSingle resolution={res[0]} />
+        </ul>
       </div>
     )
   }
