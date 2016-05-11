@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 
-
-
-
 export default class ResolutionsForm extends Component {
 
   addResolution(event) {
@@ -13,9 +10,9 @@ export default class ResolutionsForm extends Component {
     this.refs.resolution.value = "";
   }
 
-  render(){
+  render() {
     return (
-      <form class="new-resolution" onSubmit={this.addResolution.bind(this)}>
+      <form className="new-resolution" onSubmit={this.addResolution.bind(this)}>
         <input type="text" ref="resolution" placeholder="Finish"/>
       </form>
     );
