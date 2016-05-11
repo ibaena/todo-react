@@ -3,15 +3,15 @@ import React, {Component} from 'react';
 export default class ResolutionSingle extends Component {
 
   toggleChecked() {
-    Meteor.call('toggleResolutions', this.props.resolution._id, this.props.resolution.complete);
+    Meteor.call('toggleResolutions', this.props.resolution);
   }
   deleteResolution() {
-    Meteor.call('deleteResolution', this.props.resolution._id);
+    Meteor.call('deleteResolution', this.props.resolution);
   }
-render() {
-  return (
-    <li>
-      <inpu type="checkbox">
+  render(){
+    return (
+      <li>
+        <input type="checkbox"
                readOnly={true}
                checked={this.props.resolution.complete}
                onClick={this.toggleChecked.bind(this)} />
@@ -19,7 +19,7 @@ render() {
         <button className="btn-cancel"
                 onClick={this.deleteResolution.bind(this)}>
                 &times;
-        </button>
+                </button>
       </li>
     )
   }
