@@ -17,7 +17,7 @@ Meteor.methods({
     }
     Resolutions.update(resolution._id, {
       $set: {
-        complete: !status
+        complete: !resolution.complete
       }
     });
   },
