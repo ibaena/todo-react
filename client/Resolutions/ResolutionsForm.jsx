@@ -5,10 +5,15 @@ export default class ResolutionsForm extends Component {
   addResolution(event) {
     event.preventDefault();
     var text = this.refs.resolution.value.trim();
-
-    Meteor.call('addResolution', text, ()=> {
+    if (text) {
+      Meteor.call('addResolution', text, () => {
+        if (!Meteor.userId()) {
+          Bert.alert('Please login before submitting', 'danger', 'fixed-top', 'fa-frown-o');
+        } else {
           this.refs.resolution.value = "";
-    });
+        }
+      });
+    }
   }
 
   render() {
